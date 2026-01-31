@@ -5,7 +5,8 @@ from PIL import Image, ImageTk
 
 def bgr_to_tk_photo(bgr_img, max_size: Tuple[int, int]):
     """
-    将 OpenCV BGR 转为 Tkinter 可显示的 PhotoImage，并按 max_size 等比缩放。
+    Convert an OpenCV BGR image to a Tkinter-compatible PhotoImage,
+    and resize it proportionally to fit within max_size.
     """
     rgb = cv2.cvtColor(bgr_img, cv2.COLOR_BGR2RGB)
     pil_img = Image.fromarray(rgb)

@@ -16,7 +16,7 @@ class ImageModel:
     def load(self, path: str) -> None:
         img = cv2.imread(path)
         if img is None:
-            raise ValueError("无法读取该图片，请选择常见格式（jpg/png/bmp等）。")
+            raise ValueError("Unable to read the image. Please choose a common format (jpg/png/bmp, etc.).")
         self.path = path
         self.original_bgr = img
         self.committed_bgr = img.copy()
@@ -31,20 +31,20 @@ class ImageModel:
         return self.current_bgr
 
     def get_committed(self) -> Optional[np.ndarray]:
-        """返回滑条效果的基底图"""
+        """Return the base image used for slider-based adjustments."""
         return self.committed_bgr
 
     def set_current(self, bgr_img: np.ndarray) -> None:
         self.current_bgr = bgr_img
 
     def commit(self, bgr_img: np.ndarray) -> None:
-        """将按钮操作结果提交为新的基底"""
+        """Commit the result of a button operation as the new base image."""
         self.committed_bgr = bgr_img
         self.current_bgr = bgr_img
 
     def save(self, out_path: str) -> None:
         if not self.has_image():
-            raise ValueError("没有可保存的图片。")
+            raise ValueError("There is no image to save.")
         ok = cv2.imwrite(out_path, self.current_bgr)
         if not ok:
-            raise ValueError("保存失败，请检查路径/权限。")
+            raise ValueError("Failed to save the image. Please check the path or permissions.")
